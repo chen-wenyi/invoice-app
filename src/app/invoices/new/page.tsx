@@ -1,15 +1,33 @@
-import { Button } from '@/components/ui/button';
+'use client';
+import { createAction } from '@/app/actions';
+import SubmitButton from '@/components/SubmitButton';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import Form from 'next/form';
+import { SyntheticEvent, useState } from 'react';
 
 export default function NewInvoice() {
+  const [state, setState] = useState('ready');
+
+  const handleOnSubmit = async (e: SyntheticEvent) => {
+    if (state === 'pending') {
+      e.preventDefault();
+      return;
+    }
+    setState('pending');
+  };
+
   return (
     <main className='flex flex-col w-full h-screen gap-6 px-20 py-12'>
       <div className='flex justify-between'>
         <h1 className='text-5xl font-bold'>Create Invoice</h1>
       </div>
-      <form className='grid gap-4 max-w-xs'>
+      <Form
+        action={createAction}
+        onSubmit={handleOnSubmit}
+        className='grid gap-4 max-w-xs'
+      >
         <div>
           <Label htmlFor='name' className='block font-semibold mb-2'>
             Billing Name
@@ -34,8 +52,8 @@ export default function NewInvoice() {
           </Label>
           <Textarea id='description' name='description' />
         </div>
-        <Button className='font-semibold'>Submit</Button>
-      </form>
+        <SubmitButton />
+      </Form>
     </main>
   );
 }

@@ -43,7 +43,7 @@ export default async function Dashboard() {
           </TableHeader>
           <TableBody>
             {results.map(({ id, status, value, createTS }) => (
-              <TableRow id={id.toString()}>
+              <TableRow id={id.toString()} key={id.toString()}>
                 <TableCell className='p-4'>
                   <Link href={`/invoices/${id}`} className='font-semibold'>
                     {new Date(createTS).toLocaleDateString('en-GB')}

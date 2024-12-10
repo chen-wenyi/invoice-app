@@ -7,10 +7,9 @@ import { eq } from 'drizzle-orm';
 export default async function InvoicePage({
   params,
 }: {
-  params: { invoiceId: string };
+  params: Promise<{ invoiceId: string }>;
 }) {
-  const invoiceId = parseInt(params.invoiceId);
-
+  const invoiceId = parseInt((await params).invoiceId);
   const [result] = await db
     .select()
     .from(Invoices)

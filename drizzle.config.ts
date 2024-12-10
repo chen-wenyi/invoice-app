@@ -2,7 +2,6 @@ import { config } from 'dotenv';
 import { defineConfig } from 'drizzle-kit';
 
 config({ path: './.env.local' });
-
 if (typeof process.env.XATA_DATBASE_URL !== 'string') {
     throw new Error('you need to specify XATA_DATBASE_URL')
 }
